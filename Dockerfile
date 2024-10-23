@@ -1,6 +1,9 @@
 # Usa la imagen base de la última versión de Python
 FROM python:3.12-slim
 
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
 # Instala las herramientas de compilación y dependencias necesarias
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -8,9 +11,6 @@ RUN apt-get update && apt-get install -y \
     libatlas-base-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Establece el directorio de trabajo dentro del contenedor
-WORKDIR /app
 
 # Copia el archivo requirements.txt al contenedor
 COPY requirements_c.txt .
@@ -22,7 +22,7 @@ RUN pip install --upgrade pip \
 # Copia el archivo de código Python al contenedor
 COPY dash_modelos_PF.py .
 
-# Copia los archivos CSV al contenedor
+# Copia los archivos TXT al contenedor
 COPY resultado_part1.txt .
 COPY resultado_part2.txt .
 COPY resultado_part3.txt .
